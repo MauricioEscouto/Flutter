@@ -32,9 +32,9 @@ class _MyAppState extends State<MyApp> {
           duration: Duration(milliseconds: 200),
           child: ListView(
             children: [
-              Tarefas('Aprender flutter no café da manhã', 'content/img/estudar.png', 3),
-              Tarefas('Andar de bike', 'content/img/andarbike.jpg', 2),
-              Tarefas('Jogar dark souls', 'content/img/jogarvideogame.jpg', 5),
+              Tarefas('Aprender flutter no café da manhã', 'estudar.png', 3),
+              Tarefas('Andar de bike', 'andarbike.jpg', 2),
+              Tarefas('Jogar dark souls', 'jogarvideogame.jpg', 5),
             ],
           ),
         ),
@@ -101,7 +101,7 @@ class _TarefasState extends State<Tarefas> {
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(4),
                             child: Image.asset(
-                              widget.foto,
+                              'content/img/' + widget.foto,
                               fit: BoxFit.cover,
                             )),
                       ),
