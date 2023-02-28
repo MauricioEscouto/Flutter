@@ -5,7 +5,14 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NavigationDrawer(children: [
+    return NavigationDrawer(
+      onDestinationSelected: (index) {
+        if (index == 1) {
+          Navigator.of(context).pop();
+          Navigator.of(context).pushNamed('/config');
+        }
+      },
+      children: [
       Padding(
         padding: const EdgeInsets.fromLTRB(16, 28, 16, 16),
         child: Text('Opções',

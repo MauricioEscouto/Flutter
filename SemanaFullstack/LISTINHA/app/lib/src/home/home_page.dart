@@ -40,7 +40,9 @@ class _HomeState extends State<HomePage> {
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.edit),
         label: Text('Nova Lista'),
-        onPressed: (){}),
+        onPressed: (){
+          Navigator.of(context).pushNamed('./edit');
+        },),
     );
   }
 }
