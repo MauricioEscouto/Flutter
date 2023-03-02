@@ -4,6 +4,7 @@ import 'package:listinha/main.dart';
 import 'package:listinha/src/configuration/configuration_page.dart';
 import 'package:listinha/src/home/edit_task_board_page.dart';
 import 'package:listinha/src/home/home_page.dart';
+import 'package:listinha/src/shared/stores/app_store.dart';
 
 import 'themes/themes.dart';
 
@@ -12,13 +13,15 @@ class AppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     Modular.setInitialRoute('/home/');
+    final appStore = context.watch<AppStore>(
+      (store) => store.themeMode,
+    );
 
     return MaterialApp.router(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.light,
+      themeMode: appStore.themeMode.value,
       theme: lightTheme,
       darkTheme: dartTheme,
       routerDelegate: Modular.routerDelegate,
