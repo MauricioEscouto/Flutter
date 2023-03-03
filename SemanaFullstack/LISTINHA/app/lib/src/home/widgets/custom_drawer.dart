@@ -1,10 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:intl/intl.dart';
+import 'package:listinha/src/shared/stores/app_store.dart';
+
+import '../../shared/stores/app_store.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final appStore = context.watch<AppStore>(
+      (store) => store.syncDate,
+    );
+
+    final syncDate = appStore.syncDate.value;
+    var syncDateText = 'Nunca';
+
+    if (syncDate != null) {
+      final format = DateFormat('dd/MM/yyyy às hh:mm');
+      syncDateText = format.format(syncDate);
+    }
+
     return NavigationDrawer(
       onDestinationSelected: (index) {
         if (index == 1) {
@@ -13,26 +30,34 @@ class CustomDrawer extends StatelessWidget {
         }
       },
       children: [
-      Padding(
-        padding: const EdgeInsets.fromLTRB(16, 28, 16, 16),
-        child: Text('Opções',
-        style: Theme.of(context).textTheme.titleSmall,),
-      ),
-      NavigationDrawerDestination(
-        icon: Icon(Icons.sync), 
-        label: Row(
-          children: [
-            Text('Sincronizar'),
-            SizedBox(width: 28,),
-            Text('12/12/2012 às 12:12',
-            style: Theme.of(context).textTheme.bodySmall,),
-          ],
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 28, 16, 16),
+          child: Text(
+            'Opções',
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
         ),
-      ),
-      NavigationDrawerDestination(
-        icon: Icon(Icons.settings), 
-        label: Text('Configurações'),
-      ),
-    ],);
+        NavigationDrawerDestination(
+          icon: Icon(Icons.sync),
+          label: SizedBox(
+            width: 210,
+            child: Row(
+              children: [
+                Text('Sincronizar'),
+                Spacer(),
+                Text(
+                  syncDateText,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ],
+            ),
+          ),
+        ),
+        NavigationDrawerDestination(
+          icon: Icon(Icons.settings),
+          label: Text('Configurações'),
+        ),
+      ],
+    );
   }
 }
